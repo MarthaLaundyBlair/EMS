@@ -2,12 +2,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+//Attendees Management User Interface will be created when an event has been searched for
+
 public class AttendeesManagementUI {
 
 	public AttendeesManagementUI() { 
 
 	}
 
+	//Display the main menu
 	public void displayMenu(Event event){
 		String line;
 		InputStreamReader isr = new InputStreamReader(System.in);
@@ -17,7 +20,7 @@ public class AttendeesManagementUI {
 		try {
 
 			do {
-
+				System.out.println("");
 				System.out.println("Options");
 				System.out.println(" - show attendees");
 				System.out.println(" - add attendee");
@@ -40,7 +43,6 @@ public class AttendeesManagementUI {
 
 				case "exit" :
 					System.out.println("Returning to main menu...");
-					System.out.println("\n");
 					break;
 
 				default:
@@ -55,7 +57,41 @@ public class AttendeesManagementUI {
 			e.printStackTrace();
 		} 
 	}
+	
+	//List all attendees going to the specific event
+	private static void userShowAttendees(Event event) {
+		System.out.println(event.listAttendees());
 
+	}
+
+	//Add an attendee to the event
+	private static void userAddAttendee(Event event) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		try {
+
+			System.out.println("Add attendee to: " + event);
+			System.out.println("What attendee would you like to add?");
+			System.out.print("First name : ");
+			String firstName = br.readLine();
+			System.out.print("Last Name : ");
+			String lastName = br.readLine();
+			System.out.print("Email : ");
+			String email = br.readLine();
+			System.out.print("Number : ");
+			String number = br.readLine();
+
+			event.addAttendee(firstName, lastName, email, number);
+			System.out.println("Attendee added!");
+		}
+
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	//delete an attendee from the event
 	private static void userDeleteAttendee(Event event) {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -84,37 +120,5 @@ public class AttendeesManagementUI {
 		}
 
 	}
-
-	private static void userAddAttendee(Event event) {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-		try {
-
-			System.out.println("Add attendee to: " + event);
-			System.out.println("What attendee would you like to add?");
-			System.out.print("First name : ");
-			String firstName = br.readLine();
-			System.out.print("Last Name : ");
-			String lastName = br.readLine();
-			System.out.print("Email : ");
-			String email = br.readLine();
-			System.out.print("Number : ");
-			String number = br.readLine();
-
-			event.addAttendee(firstName, lastName, email, number);
-			System.out.println("Attendee added!");
-		}
-
-		catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private static void userShowAttendees(Event event) {
-		System.out.println(event.listAttendees());
-
-	}
-
 
 }

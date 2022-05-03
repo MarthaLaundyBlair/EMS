@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -23,7 +22,7 @@ public class Event implements Serializable{
 	//To String
 
 	public String toString() {
-		return "Name = " + name + ", Location = " + location + ", Date = " + date + ", Time = " + time;
+		return "name = " + name + ", location = " + location + ", date = " + date + ", time = " + time;
 	}
 
 	//Getters
@@ -62,6 +61,18 @@ public class Event implements Serializable{
 			break;
 		}
 	}
+	
+	// Search Attendees
+		public Attendee searchAttendee(String first, String last) {
+
+			for (Attendee attendee : attendees) {
+
+				if (first.equals(attendee.getFirstName()) & last.equals(attendee.getLastName())) {
+					return attendee;	
+				}
+			}
+			return null;
+		}
 
 	// Add Attendee
 
@@ -77,19 +88,6 @@ public class Event implements Serializable{
 
 	}
 
-	// Search Attendees
-	public Attendee searchAttendee(String first, String last) {
-
-		for (Attendee attendee : attendees) {
-
-			if (first.equals(attendee.getFirstName()) & last.equals(attendee.getLastName())) {
-				return attendee;	
-			}
-		}
-		return null;
-	}
-
-
 	// List Attendees
 	public String listAttendees() {
 		StringBuilder sb = new StringBuilder("");
@@ -101,6 +99,6 @@ public class Event implements Serializable{
 		}
 		return sb.toString();
 	}
-
+	
 
 }
