@@ -13,81 +13,83 @@ import java.time.LocalTime;
 
 public class EventsManager {
 
-	ArrayList<Event> eventsArrayList = new ArrayList<>();
+	//ArrayList<Event> eventsArrayList = new ArrayList <>();
+	ArrayList<Event> eventsArrayList = ReadObjectFromFile();
 
 
-	/*
 	public void writeObjectToFile() {
 		try (
 				FileOutputStream fos = new FileOutputStream("object.dat");
-			     ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+				ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
-			    oos.writeObject(eventsArrayList);
+			oos.writeObject(eventsArrayList);
 
-			} catch (IOException ex) {
-			    ex.printStackTrace();
-			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 
 	public ArrayList<Event> ReadObjectFromFile() {
 
-        try {
+		try {
 
-            FileInputStream fileIn = new FileInputStream("object.dat");
-            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+			FileInputStream fileIn = new FileInputStream("object.dat");
+			ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 
-            ArrayList<Event> eventsArrayList = (ArrayList<Event>) objectIn.readObject();
+			ArrayList<Event> eventsArrayList = (ArrayList<Event>) objectIn.readObject();
 
-            objectIn.close();
-            return eventsArrayList;
+			objectIn.close();
+			return eventsArrayList;
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }*/
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 
 	public void addEvent(String name, String location, String date, String time) {
 
 		Event e1  = new Event(name, location, date, time);
 		eventsArrayList.add(e1);
-		//writeObjectToFile();
+
 
 	} 
-	
-	public String searchEvents(String key, String value) {
-		StringBuilder sb = new StringBuilder("");
+
+	public Event searchEvents(String key, String value) {
+		StringBuilder sbe = new StringBuilder("");
 		for (Event event : eventsArrayList) {
 			if (key.equals("name") & value.equals(event.getName())) {
-				sb.append(event.toString());
-				sb.append("\n");
+				sbe.append(event.toString());
+				sbe.append("\n");
+				return event;
+
 			}
 			else if (key.equals("location") & value.equals(event.getLocation())) {
-				sb.append(event.toString());
-				sb.append("\n");
+				sbe.append(event.toString());
+				sbe.append("\n");
+				return event;
 			}
-			/*else if (key.equals("date") & value.equals(event.getDate())) {
-				sb.append(event.toString());
-				sb.append("\n");
+			else if (key.equals("date") & value.equals(event.getDate())) {
+				sbe.append(event.toString());
+				sbe.append("\n");
+				return event;
 			}
 			else if (key.equals("time") & value.equals(event.getTime())) {
-				sb.append(event.toString());
-				sb.append("\n");
-			}*/
-			else {
-				sb.append("Sorry no events found!");
-				sb.append("\n");
+				sbe.append(event.toString());
+				sbe.append("\n");
+				return event;
 			}
+
+
 		}
-		return sb.toString();
+		return null;
 
 	}
 
 
 	public String listEvents() {
 		StringBuilder sb = new StringBuilder("");
-		
 		for(Event event: eventsArrayList) {
 			sb.append(event.toString());
 			sb.append("\n");
@@ -95,6 +97,17 @@ public class EventsManager {
 		return sb.toString();
 	}
 
-	
+
+	public void editEvent(String key, String value, Event eventToEdit) {
+
+		eventToEdit.updateEvent(key, value);
+	}
+
+
+	public void deleteEvent(Event eventToDel) {
+		eventsArrayList.remove(eventToDel);
+
+	}
+
 
 }

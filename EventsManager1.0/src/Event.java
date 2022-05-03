@@ -1,30 +1,33 @@
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.ArrayList;
 
-public class Event{
+
+public class Event implements Serializable{
 
 	private String name;
 	private String location;
-	private LocalDate date; // "2016-06-12" format
-	private LocalTime time; // "06:30" format
-	
+	private String date; // "2016-06-12" format
+	private String time; // "06:30" format
+	private ArrayList<Attendee> attendees = new ArrayList <>();
+
 	//Constructor
 
-	public Event(String name, String location, String dateString, String timeString) {
+	public Event(String name, String location, String date, String time) {
 		this.name = name;
 		this.location = location;
-		this.date = LocalDate.parse(dateString);
-		this.time = LocalTime.parse(timeString);
-		}
+		this.date = date;
+		this.time = time;
+	}
 
 	//To String
 
 	public String toString() {
 		return "Name = " + name + ", Location = " + location + ", Date = " + date + ", Time = " + time;
 	}
-	
+
 	//Getters
-	
+
 	public String getName() {
 		return name;
 	}
@@ -33,16 +36,16 @@ public class Event{
 		return location;
 	}
 
-	public LocalDate getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public LocalTime getTime() {
+	public String getTime() {
 		return time;
 	}	
-	
+
 	//Update Event
-	
+
 	public void updateEvent(String field, String new_value) {
 		switch(field) {
 		case "name" :
@@ -52,16 +55,52 @@ public class Event{
 			this.location = new_value;
 			break;
 		case "date" :
-			this.date = LocalDate.parse(new_value);
+			this.date = new_value;
 			break;
 		case "time" :
-			this.time = LocalTime.parse(new_value);
+			this.time = new_value;
 			break;
 		}
-		
+	}
+
+	// Add Attendee
+
+	public void addAttendee(String first, String last, String email, String number) {
+		Attendee attendeeToAdd = new Attendee(first, last, email, number);
+		attendees.add(attendeeToAdd);
+	}
+
+	// Delete Attendee
+	public void deleteAttendee(Attendee attendeeToDel) {
+
+		attendees.remove(attendeeToDel);
 
 	}
 
-	
-	
+	// Search Attendees
+	public Attendee searchAttendee(String first, String last) {
+
+		for (Attendee attendee : attendees) {
+
+			if (first.equals(attendee.getFirstName()) & last.equals(attendee.getLastName())) {
+				return attendee;	
+			}
+		}
+		return null;
+	}
+
+
+	// List Attendees
+	public String listAttendees() {
+		StringBuilder sb = new StringBuilder("");
+		sb.append("Attendees:");
+		sb.append("\n");
+		for(Attendee attendee: attendees) {
+			sb.append(attendee.toString());
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+
+
 }
