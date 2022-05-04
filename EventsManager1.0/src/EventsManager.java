@@ -11,8 +11,8 @@ import java.time.format.DateTimeParseException;
 public class EventsManager {
 	//Events manager contains the buisness logic for the EventsManagement User Interface
 
-	ArrayList<Event> eventsArrayList = new ArrayList <>();
-	//ArrayList<Event> eventsArrayList = ReadObjectFromFile();
+	//ArrayList<Event> eventsArrayList = new ArrayList <>();
+	ArrayList<Event> eventsArrayList = ReadObjectFromFile();
 
 
 	//Write Object to "object.da" when user opts to save 

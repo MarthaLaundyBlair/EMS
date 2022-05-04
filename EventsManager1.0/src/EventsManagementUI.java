@@ -185,7 +185,7 @@ public class EventsManagementUI{
 			//Event Manager carries out the buisness logic
 			eventToDel = Em.searchEvents(name);
 			if (eventToDel != null) {
-				System.out.print("Will delete: " + eventToDel);
+				System.out.println("Will delete: " + eventToDel);
 				Em.deleteEvent(eventToDel);
 				System.out.println("Event deleted!");
 			}
